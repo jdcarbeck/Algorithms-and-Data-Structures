@@ -12,5 +12,5 @@ public class CompetitionTests {
     }
 
     //TODO - more tests
-    
+
 }

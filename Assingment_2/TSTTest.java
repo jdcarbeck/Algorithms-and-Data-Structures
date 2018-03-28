@@ -30,7 +30,7 @@ public class TSTTest {
 
   @Test
   public void testSingleElement() {
-  	TST<Integer> trie = new TST<>();
+    TST<Integer> trie = new TST<>();
   	trie.put("A", 1);
   	assertEquals("Size of single element list should be: ", 1, trie.size());
 		assertTrue("contains \"A\"", trie.contains("A"));
@@ -41,7 +41,7 @@ public class TSTTest {
 		assertNull("get val of \"AB\"", trie.get("AB"));
   }
 
-  @Test 
+  @Test
   public void testTwoElements() {
   	TST<Integer> trie = new TST<>();
   	trie.put("D", 4);
@@ -119,7 +119,7 @@ public class TSTTest {
 	  	while(scanner.hasNext()) {
 	  		String word = scanner.next();
 	  		String occurance = scanner.next();
-	  		bookTrie.put(word, occurance);
+        bookTrie.put(word, occurance);
 	  	}
 
 	  	scanner.close();

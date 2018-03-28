@@ -1,5 +1,4 @@
-/*
- * A Contest to Meet (ACM) is a reality TV contest that sets three contestants at three random
+/* * A Contest to Meet (ACM) is a reality TV contest that sets three contestants at three random
  * city intersections. In order to win, the three contestants need all to meet at any intersection
  * of the city as fast as possible.
  * It should be clear that the contestants may arrive at the intersections at different times, in
@@ -22,8 +21,7 @@ public class CompetitionFloydWarshall {
      * @param sA, sB, sC: speeds for 3 contestants
      */
     CompetitionFloydWarshall (String filename, int sA, int sB, int sC){
-
-        //TODO
+       //TODO
     }
 
 
