@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 /* * A Contest to Meet (ACM) is a reality TV contest that sets three contestants at three random
  * city intersections. In order to win, the three contestants need all to meet at any intersection
  * of the city as fast as possible.
@@ -15,23 +17,48 @@
  */
 
 public class CompetitionFloydWarshall {
-
-    /**
-     * @param filename: A filename containing the details of the city road network
-     * @param sA, sB, sC: speeds for 3 contestants
-     */
-    CompetitionFloydWarshall (String filename, int sA, int sB, int sC){
-       //TODO
+  public static AdjMatrixEdgeWeightedDirectedGraph G;
+  public int slowest;
+  public double maxDistance;
+  public boolean isValidGraph;
+  /**
+   * @param filename: A filename containing the details of the city road network
+   * @param sA, sB, sC: speeds for 3 contestants
+   */
+  CompetitionFloydWarshall (String filename, int sA, int sB, int sC) throws FileNotFoundException{
+    this.G = new AdjMatrixEdgeWeightedDirectedGraph(new File(filename));
+    FloydWarshall shortestPath = new FloydWarshall(this.G);
+    this.maxDistance = 0.0;
+    this.slowest = Math.min(Math.min(sA,sB),sC);
+    int vertices = this.G.V();
+    if(this.G.isValid()){
+      this.isValidGraph = true;
+      for(int v = 0; v < vertices; v++){
+        for(int w = 0; w < vertices; w++){
+          if(shortestPath.hasPath(v,w)){
+            if(this.maxDistance < shortestPath.dist(v,w))
+              this.maxDistance = shortestPath.dist(v,w);
+          }
+        }
+      }
     }
+    else
+      this.isValidGraph = false;
+    System.out.println(timeRequiredforCompetition(maxDistance, slowest));
+  }
 
 
-    /**
-     * @return int: minimum minutes that will pass before the three contestants can meet
-     */
-    public int timeRequiredforCompetition(){
-
-        //TO DO
-        return -1;
+  /**
+   * @return int: minimum minutes that will pass before the three contestants can meet
+   */
+  public int timeRequiredforCompetition(double distance, int speed){
+    if(distance > 0.0 && speed > 0){
+      return (int) Math.ceil((1000*distance)/speed);
     }
+    return -1;
+  }
 
+  public static void main(String[] args) throws FileNotFoundException{
+   CompetitionFloydWarshall comp = new CompetitionFloydWarshall("tinyEWD.txt", 50 ,75, 100);
+  }
 }
