@@ -10,6 +10,7 @@ public class EdgeWeightedDirectedGraph {
   //adjacency table
   private Bag<DirectedEdge>[] adj;
 
+  @SuppressWarnings({"rawtypes", "unchecked"})
   public EdgeWeightedDirectedGraph(File file) throws FileNotFoundException {
     Scanner scanner = new Scanner(file);
     this.V = scanner.nextInt();
@@ -30,6 +31,7 @@ public class EdgeWeightedDirectedGraph {
     }
   }
 
+  @SuppressWarnings({"rawtypes", "unchecked"})
   public EdgeWeightedDirectedGraph(int V){
     this.V = V;
     this.E = 0;

@@ -82,6 +82,10 @@ public class AdjMatrixEdgeWeightedDirectedGraph {
   		return false;
   	}
 
+    public void remove(){
+      throw new UnsupportedOperationException();
+    }
+
   	public DirectedEdge next(){
   		if(!hasNext())
   			throw new NoSuchElementException();

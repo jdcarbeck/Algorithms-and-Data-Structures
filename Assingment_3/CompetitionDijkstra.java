@@ -20,7 +20,9 @@ import java.io.FileNotFoundException;
 
 public class CompetitionDijkstra {
 
-  private static EdgeWeightedDirectedGraph G;
+  private EdgeWeightedDirectedGraph G;
+  private int slowest;
+  private double maxDist;
   /**
   * @param filename: A filename containing the details of the city road network
   * @param sA, sB, sC: speeds for 3 contestants
@@ -30,33 +32,31 @@ public class CompetitionDijkstra {
 
     this.G = new EdgeWeightedDirectedGraph(new File(filename));
 
-    int slowest = Math.min(Math.min(sA,sB),sC);
-    double maxDist = 0.0;
+    this.slowest = Math.min(Math.min(sA,sB),sC);
+    this.maxDist = 0.0;
 
     for(int i = 0; i < G.V(); i++){
       DijkstraSP routedGraph = new DijkstraSP(G, i);
       for(int j = 0; j < G.V(); j++){
         if(routedGraph.hasPathTo(j)){
-          if(maxDist < routedGraph.distTo(j))
-            maxDist = routedGraph.distTo(j);
+          if(this.maxDist < routedGraph.distTo(j))
+            this.maxDist = routedGraph.distTo(j);
         }
       }
     }
-    int time = timeRequiredForCompetition(maxDist, slowest);
-    System.out.println("Time required for show: " + time + "min");
   }
 
   /**
   * @return int: minimum minutes that will pass before the three contestants can meet
   */
-  public int timeRequiredForCompetition(double dist, int speed){
+  public int timeRequiredforCompetition(){
     //run and find all the paths from each node saving the longest distance for each time
-    double time = (1000*dist)/speed;
+    double time = (1000*this.maxDist)/this.slowest;
 
     return (int) Math.ceil(time);
   }
-
+  /*
   public static void main(String[] args) throws FileNotFoundException{
     CompetitionDijkstra competition = new CompetitionDijkstra("tinyEWD.txt", 50, 75, 100);
-  }
+  }*/
 }

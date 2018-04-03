@@ -17,7 +17,7 @@ import java.io.FileNotFoundException;
  */
 
 public class CompetitionFloydWarshall {
-  public static AdjMatrixEdgeWeightedDirectedGraph G;
+  public AdjMatrixEdgeWeightedDirectedGraph G;
   public int slowest;
   public double maxDistance;
   public boolean isValidGraph;
@@ -44,21 +44,20 @@ public class CompetitionFloydWarshall {
     }
     else
       this.isValidGraph = false;
-    System.out.println(timeRequiredforCompetition(maxDistance, slowest));
   }
 
 
   /**
    * @return int: minimum minutes that will pass before the three contestants can meet
    */
-  public int timeRequiredforCompetition(double distance, int speed){
-    if(distance > 0.0 && speed > 0){
-      return (int) Math.ceil((1000*distance)/speed);
+  public int timeRequiredforCompetition(){
+    if(this.maxDistance > 0.0 && this.slowest > 0){
+      return (int) Math.ceil((1000*this.maxDistance)/this.slowest);
     }
     return -1;
   }
-
+  /*
   public static void main(String[] args) throws FileNotFoundException{
    CompetitionFloydWarshall comp = new CompetitionFloydWarshall("tinyEWD.txt", 50 ,75, 100);
-  }
+  }*/
 }
