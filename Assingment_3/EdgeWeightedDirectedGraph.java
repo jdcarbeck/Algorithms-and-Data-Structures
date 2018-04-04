@@ -31,16 +31,6 @@ public class EdgeWeightedDirectedGraph {
     }
   }
 
-  @SuppressWarnings({"rawtypes", "unchecked"})
-  public EdgeWeightedDirectedGraph(int V){
-    this.V = V;
-    this.E = 0;
-    this.adj = (Bag<DirectedEdge>[]) new Bag[V];
-
-    for(int v = 0; v < V; v++)
-      this.adj[v] = new Bag<DirectedEdge>();
-  }
-
   public int V(){
     return V;
   }

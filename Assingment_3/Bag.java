@@ -15,14 +15,6 @@ public class Bag<Item> implements Iterable<Item> {
       n = 0;
     }
 
-    public boolean isEmpty(){
-      return first == null;
-    }
-
-    public int size(){
-      return n;
-    }
-
     public void add(Item item){
       Node<Item> oldfirst = first;
       first = new Node<Item>();

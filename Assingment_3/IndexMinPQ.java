@@ -30,10 +30,6 @@ public class IndexMinPQ<Key extends Comparable<Key>> implements Iterable<Integer
       return qp[i] != -1;
     }
 
-    public int size(){
-      return n;
-    }
-
     public void insert(int i, Key key){
       n++;
       qp[i] = n;
@@ -46,7 +42,6 @@ public class IndexMinPQ<Key extends Comparable<Key>> implements Iterable<Integer
       int min = pq[1];
       exch(1, n--);
       sink(1);
-      assert min == pq[n + 1];
       qp[min] = -1;
       keys[min] = null;
       pq[n + 1] = -1;

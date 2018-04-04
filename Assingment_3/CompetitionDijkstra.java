@@ -30,10 +30,15 @@ public class CompetitionDijkstra {
   CompetitionDijkstra (String filename, int sA, int sB, int sC) throws FileNotFoundException {
     //implment a weighted directed graph
 
-    this.G = new EdgeWeightedDirectedGraph(new File(filename));
-
-    this.slowest = Math.min(Math.min(sA,sB),sC);
-    this.maxDist = 0.0;
+    try{
+      this.G = new EdgeWeightedDirectedGraph(new File(filename));
+      this.slowest = Math.min(Math.min(sA,sB),sC);
+      this.maxDist = 0.0;
+    }catch(FileNotFoudException e){
+      this.G = null;
+      this.slowest = 0;
+      this.maxDist = 0.0;
+    }
 
     for(int i = 0; i < G.V(); i++){
       DijkstraSP routedGraph = new DijkstraSP(G, i);
@@ -51,9 +56,12 @@ public class CompetitionDijkstra {
   */
   public int timeRequiredforCompetition(){
     //run and find all the paths from each node saving the longest distance for each time
-    double time = (1000*this.maxDist)/this.slowest;
-
-    return (int) Math.ceil(time);
+    if(this.G == null || this.maxDist = 0.0 || this.slowest = 0)
+      return -1;
+    else {
+      double time = (1000*this.maxDist)/this.slowest;
+      return (int) Math.ceil(time);
+    }
   }
   /*
   public static void main(String[] args) throws FileNotFoundException{

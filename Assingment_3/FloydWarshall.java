@@ -1,7 +1,7 @@
 import java.util.Stack;
 
 public class FloydWarshall{
-	private boolean hasNegativeCycle;
+	public boolean hasNegativeCycle;
 	private double[][] distTo;
 	private DirectedEdge[][] edgeTo;
 
@@ -48,45 +48,12 @@ public class FloydWarshall{
 		return hasNegativeCycle;
 	}
 
-	public Iterable<DirectedEdge> negativeCycle(){
-		for(int v = 0; v < distTo.length; v++){
-			if(distTo[v][v] < 0.0){
-				int V = edgeTo.length;
-				EdgeWeightedDirectedGraph spt = new EdgeWeightedDirectedGraph(V);
-
-				for(int w = 0; w < V; w++){
-					if(edgeTo[v][w] != null)
-						spt.addEdge(edgeTo[v][w]);
-				}
-
-				EdgeWeightedDirectedCycle finder = new EdgeWeightedDirectedCycle(spt);
-				return finder.cycle();
-			}
-		}
-		return null;
-	}
-
 	public boolean hasPath(int f, int t){
 		return distTo[f][t] < Double.POSITIVE_INFINITY;
 	}
-
 	public double dist(int f, int t){
 		if(hasNegativeCycle())
 			throw new UnsupportedOperationException("Negative cost cycle exists");
 		return distTo[f][t];
-	}
-
-	public Iterable<DirectedEdge> path(int f, int t){
-		if(hasNegativeCycle())
-			throw new UnsupportedOperationException("Negative cost cycle exists");
-		if(!hasPath(f, t))
-			return null;
-
-		Stack<DirectedEdge> path = new Stack<DirectedEdge>();
-
-		for(DirectedEdge e = edgeTo[f][t]; e != null; e = edgeTo[f][e.from()]){
-			path.push(e);
-		}
-		return path;
 	}
 }

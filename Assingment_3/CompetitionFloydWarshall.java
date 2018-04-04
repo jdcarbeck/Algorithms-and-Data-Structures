@@ -51,10 +51,7 @@ public class CompetitionFloydWarshall {
    * @return int: minimum minutes that will pass before the three contestants can meet
    */
   public int timeRequiredforCompetition(){
-    if(this.maxDistance > 0.0 && this.slowest > 0){
-      return (int) Math.ceil((1000*this.maxDistance)/this.slowest);
-    }
-    return -1;
+    return (int) Math.ceil((1000*this.maxDistance)/this.slowest);
   }
   /*
   public static void main(String[] args) throws FileNotFoundException{
