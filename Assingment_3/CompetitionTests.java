@@ -66,7 +66,7 @@ public class CompetitionTests {
     Scanner scanner = new Scanner(new File("tinyEWD.txt"));
     AdjMatrixEdgeWeightedDirectedGraph adjA =
       new AdjMatrixEdgeWeightedDirectedGraph(scanner);
-
+    assertTrue("valid: ", adjA.isValid());
     assertEquals("E: ", 30, adjA.E());
 
     //test graph with negitive cycle
@@ -80,6 +80,11 @@ public class CompetitionTests {
     AdjMatrixEdgeWeightedDirectedGraph adjC =
       new AdjMatrixEdgeWeightedDirectedGraph(scanner);
     assertFalse("invalid graph", adjC.isValid());
+
+    scanner = new Scanner(new File("invalid.txt"));
+    AdjMatrixEdgeWeightedDirectedGraph adjD =
+      new AdjMatrixEdgeWeightedDirectedGraph(scanner);
+    assertFalse("invalid graph", adjD.isValid());
 
     scanner.close();
   }
@@ -102,6 +107,7 @@ public class CompetitionTests {
     assertTrue("Path", d.hasPathTo(4));
     Iterable<DirectedEdge> path = d.pathTo(4);
     Iterable<DirectedEdge> edges = g.edges();
+
     scanner.close();
   }
 }

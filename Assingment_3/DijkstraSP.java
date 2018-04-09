@@ -3,7 +3,7 @@ import java.util.Stack;
 public class DijkstraSP {
   private double[] distTo;
   private DirectedEdge[] edgeTo;
-  private IndexMinPQ<Double> priorityQueue;
+  public IndexMinPQ<Double> priorityQueue;
 
   public DijkstraSP(EdgeWeightedDirectedGraph G, int source){
     distTo = new double[G.V()];

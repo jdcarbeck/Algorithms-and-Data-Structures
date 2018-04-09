@@ -28,14 +28,10 @@ public class AdjMatrixEdgeWeightedDirectedGraph {
         int w = scanner.nextInt();
         double weight = scanner.nextDouble();
 
-        if(v >= 0 && w >=0){
-          if(v == w)
-            addEdge(new DirectedEdge(v, w, Math.abs(weight)));
-          else
-            addEdge(new DirectedEdge(v, w, weight));
-        }
+        if(v == w)
+          addEdge(new DirectedEdge(v, w, Math.abs(weight)));
         else
-          this.isValid = false;
+          addEdge(new DirectedEdge(v, w, weight));
       }
       validateGraph();
     }
@@ -44,8 +40,6 @@ public class AdjMatrixEdgeWeightedDirectedGraph {
   }
 
   public void validateGraph(){
-    if(!this.isValid)
-      return;
     boolean graphValid = true;
 
     for(int v=0; v<this.V; v++){
