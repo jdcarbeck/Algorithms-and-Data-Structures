@@ -12,31 +12,51 @@ public class AdjMatrixEdgeWeightedDirectedGraph {
   //adjacency table
   private DirectedEdge[][] edgeFromTo;
   private boolean isValid;
+  public int[] indegree;
 
-  public AdjMatrixEdgeWeightedDirectedGraph(File file) throws FileNotFoundException {
-    Scanner scanner = new Scanner(file);
+  public AdjMatrixEdgeWeightedDirectedGraph(Scanner scanner){
     this.V = scanner.nextInt();
     this.E = scanner.nextInt();
     this.isValid = true;
+    this.indegree = new int[this.V];
 
     int edges = this.E;
     this.edgeFromTo = new DirectedEdge[this.V][this.V];
+    if(this.V >= 3){
+      for(int i=0; i < edges; i++){
+        int v = scanner.nextInt();
+        int w = scanner.nextInt();
+        double weight = scanner.nextDouble();
 
-    for(int i=0; i < edges; i++){
-    	int v = scanner.nextInt();
-    	int w = scanner.nextInt();
-    	double weight = scanner.nextDouble();
-
-    	if(v >= 0 && w >=0){
-    		if(v == w)
-    			addEdge(new DirectedEdge(v, w, Math.abs(weight)));
-    		else
-    			addEdge(new DirectedEdge(v, w, weight));
-    	}
-    	else
-    		this.isValid = false;
-  	}
+        if(v >= 0 && w >=0){
+          if(v == w)
+            addEdge(new DirectedEdge(v, w, Math.abs(weight)));
+          else
+            addEdge(new DirectedEdge(v, w, weight));
+        }
+        else
+          this.isValid = false;
+      }
+      validateGraph();
+    }
+    else
+      this.isValid = false;
   }
+
+  public void validateGraph(){
+    if(!this.isValid)
+      return;
+    boolean graphValid = true;
+
+    for(int v=0; v<this.V; v++){
+      if(indegree[v] < 1){
+        graphValid = false;
+        break;
+      }
+    }
+    this.isValid = graphValid;
+  }
+
   public boolean isValid(){
   	return this.isValid;
   }
@@ -51,6 +71,7 @@ public class AdjMatrixEdgeWeightedDirectedGraph {
   public void addEdge(DirectedEdge e){
     int v = e.from();
     int w = e.to();
+    this.indegree[w]++;
     if(edgeFromTo[v][w] == null){
     	E++;
     	edgeFromTo[v][w] = e;

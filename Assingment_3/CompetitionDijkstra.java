@@ -1,5 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.lang.NullPointerException;
 
 /*
  * A Contest to Meet (ACM) is a reality TV contest that sets three contestants at three random
@@ -27,25 +29,28 @@ public class CompetitionDijkstra {
   * @param filename: A filename containing the details of the city road network
   * @param sA, sB, sC: speeds for 3 contestants
   */
-  CompetitionDijkstra (String filename, int sA, int sB, int sC) throws FileNotFoundException {
+  CompetitionDijkstra (String filename, int sA, int sB, int sC){
     //implment a weighted directed graph
 
     try{
-      this.G = new EdgeWeightedDirectedGraph(new File(filename));
+      File file = new File(filename);
+      Scanner scanner = new Scanner(file);
+      this.G = new EdgeWeightedDirectedGraph(scanner);
       this.slowest = Math.min(Math.min(sA,sB),sC);
       this.maxDist = 0.0;
-    }catch(FileNotFoudException e){
+    }catch(FileNotFoundException | NullPointerException e){
       this.G = null;
       this.slowest = 0;
       this.maxDist = 0.0;
     }
-
-    for(int i = 0; i < G.V(); i++){
-      DijkstraSP routedGraph = new DijkstraSP(G, i);
-      for(int j = 0; j < G.V(); j++){
-        if(routedGraph.hasPathTo(j)){
-          if(this.maxDist < routedGraph.distTo(j))
-            this.maxDist = routedGraph.distTo(j);
+    if(this.G != null && this.slowest > 0 && this.G.isValid) {
+      for(int i = 0; i < G.V(); i++){
+        DijkstraSP routedGraph = new DijkstraSP(G, i);
+        for(int j = 0; j < G.V(); j++){
+          if(routedGraph.hasPathTo(j)){
+            if(this.maxDist < routedGraph.distTo(j))
+              this.maxDist = routedGraph.distTo(j);
+          }
         }
       }
     }
@@ -56,12 +61,11 @@ public class CompetitionDijkstra {
   */
   public int timeRequiredforCompetition(){
     //run and find all the paths from each node saving the longest distance for each time
-    if(this.G == null || this.maxDist = 0.0 || this.slowest = 0)
-      return -1;
-    else {
+    if(this.G != null && this.maxDist != 0.0 && this.slowest != 0){
       double time = (1000*this.maxDist)/this.slowest;
       return (int) Math.ceil(time);
     }
+    return -1;
   }
   /*
   public static void main(String[] args) throws FileNotFoundException{
